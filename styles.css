@@ -1,0 +1,36 @@
+/* 1. Global Reset & Font Setup */
+body {
+    font-family: Arial, sans-serif; /* Changes the font */
+    line-height: 1.6; /* Makes text easier to read */
+    margin: 0; /* Removes default browser margin */
+    padding: 20px; /* Adds space around the main content */
+    background-color: #f4f4f4; /* Light gray background */
+    color: #333; /* Dark text color */
+    text-align: center; /* Centers all text content */
+}
+
+/* 2. Style the Header */
+header {
+    background-color: #333; /* Dark background for the header */
+    color: white; /* White text for the header */
+    padding: 30px 0;
+    margin-bottom: 30px;
+}
+
+/* 3. Style the Main Content */
+main {
+    max-width: 800px; /* Sets a maximum width for the content area */
+    margin: 0 auto; /* Centers the content block horizontally */
+    padding: 20px;
+    background-color: white; /* White background for the main content area */
+    border-radius: 8px; /* Adds rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow */
+}
+
+/* 4. Style the Footer */
+footer {
+    padding: 20px 0;
+    margin-top: 30px;
+    font-size: 0.8em;
+    color: #888;
+}
