@@ -17,9 +17,71 @@
         <p>Our mission is to empower independent designers by guaranteeing their work finds an audience. We are currently preparing our Phase 1 validation campaigns for our T-shirt Club as our first community project.</p>
         
         <section class="validation-section">
-            <h3>Be the First to Vote!</h3>
-            <p>Sign up now to be notified when the first designs are ready for validation.</p>
-            </section>
+    <h3>Be the First to Vote!</h3>
+    <p>Sign up now to be notified when the first designs are ready for validation.</p>
+
+    <form id="vote-form">
+        <input type="email" name="email" id="voter-email" placeholder="Enter your email to vote" required style="padding: 10px; margin: 10px 0; width: 80%; max-width: 300px; border: 1px solid #ccc; border-radius: 4px;">
+
+        <input type="hidden" name="design" value="Initial Launch Design A">
+
+        <button type="submit" id="vote-button" disabled style="padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: not-allowed; transition: background-color 0.3s;">Vote Now!</button>
+    </form>
+    
+    <p id="form-message" style="margin-top: 15px; color: #333; font-weight: bold;"></p>
+
+</section>
+
+<script>
+    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzXtVKxQpJ_p88VvPHxeiLGsSRZeUXck9PpLjYeq1rb7KDlO860OZNUEsMcRlPZXcgQ/exec
+'; 
+    
+    const form = document.getElementById('vote-form');
+    const emailInput = document.getElementById('voter-email');
+    const voteButton = document.getElementById('vote-button');
+    const formMessage = document.getElementById('form-message');
+
+    // 1. Enable Button on Valid Email
+    emailInput.addEventListener('input', function() {
+        // Basic client-side validation
+        voteButton.disabled = !emailInput.value.includes('@') || emailInput.value.length < 5;
+        voteButton.style.cursor = voteButton.disabled ? 'not-allowed' : 'pointer';
+        voteButton.style.backgroundColor = voteButton.disabled ? '#ccc' : '#007bff';
+    });
+
+    // 2. Handle Form Submission
+    form.addEventListener('submit', function(e) {
+        e.preventDefault(); // Stop the default page redirect
+        voteButton.disabled = true;
+        voteButton.textContent = 'Submitting...';
+        formMessage.textContent = '';
+
+        fetch(GOOGLE_SCRIPT_URL, {
+            method: 'POST',
+            body: new FormData(form),
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.result === 'success') {
+                formMessage.textContent = 'Thanks for voting! We will notify you when the pre-order is live.';
+                formMessage.style.color = 'green';
+                form.reset();
+                voteButton.disabled = true;
+            } else {
+                formMessage.textContent = 'Submission failed. Please try again.';
+                formMessage.style.color = 'red';
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            formMessage.textContent = 'An error occurred. Check the console.';
+            formMessage.style.color = 'red';
+        })
+        .finally(() => {
+            voteButton.textContent = 'Vote Now!';
+        });
+    });
+</script>
     </main>
     
     <footer>
